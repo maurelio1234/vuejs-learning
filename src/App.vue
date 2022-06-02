@@ -2,8 +2,8 @@
     <div class="main">
         <div class="hello">
             <div class="header">
-                <button class="button">Load data</button>
-                <button class="button" @click="data = []">Clear</button>
+                <button class="button" @click="loadData">Load data</button>
+                <button class="button" @click="clearData">Clear</button>
             </div>
             <div class="data-list">
 
@@ -28,18 +28,15 @@
 </template>
 
 <script>
-    const URL = "https://opendata.paris.fr/api/records/1.0/search//?dataset=zones-touristiques-internationales&rows=5";
-
-    const loadJSon = async (url) => {
-        return fetch(url).then(res => res.json());
-    };
+    import { mapState, mapActions } from 'vuex'
 
     export default {
         data() {
             return {
-                data: []
             };
-        }
+        },
+        methods: mapActions(['clearData', 'loadData']),
+        computed: mapState(['data'])
     };
 </script>
 
