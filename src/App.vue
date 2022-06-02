@@ -3,7 +3,7 @@
         <div class="hello">
             <div class="header">Here is a nice toggle to switch between views</div>
             <div class="toggler">
-                <toggler :tabs="tabs" selected="default"></toggler>
+                <toggler :tabs="tabs" selected="default" v-on:select="onSelected"></toggler>
             </div>
             <router-view></router-view>
         </div>
@@ -16,12 +16,29 @@
     export default {
         data() {
             return {
-                tabs: [{
-                    tab: "default",
-                    label: "Default"
-                }],
+                tabs: [
+                    {
+                        tab: "/",
+                        label: "Default"
+                    },
+                    {
+                        tab: "/hello/marcos",
+                        label: "Hello!!"
+                    },
+                    {
+                        tab: "/goodbye",
+                        label: "Goodbye!!"
+                    }],
                 selected: ""
             };
+        },
+        methods: {
+            onSelected: function (event) {
+                console.log(this.$route.path, event);
+                if (this.$route.path !== event) {
+                    this.$router.push({ path: event, replace: true });
+                }
+            }
         },
         components: {
             Toggler,
